@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Listar Monografias</h2>
+    <h2>Monografias</h2>
+    <hr>
+    <form action="?" method="GET">
+        <input type="text" name="q" value="{{ request.GET.q }}" class="p-1 border" autocomplete="off" placeholder="Buscar">
+        <button type="submit" class="btn btn-success">Pesquisar</button>
+        <a href="{% url 'listar_monografias' %}" class="btn btn-light">Limpar</a>
+    </form>
+    
+    <hr>
     <table class="table">
         <thead>
             <tr>
@@ -33,4 +41,18 @@
     </table>
     <a href="{% url 'criar_monografia' %}" class="btn btn-success">Criar Monografia</a>
 </div>
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
+   <li class="page-item"><a  href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}" class=" page-link">Anterior</a></li> 
+    {% endif %}
+    <li class="page-item">
+        <span class="page-link ">Página: {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
+    </li>
+   
+    {% if page_obj.has_next %}
+    <li class="page-item"><a class=" page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Próxima</a></li>
+    <li class="page-item"><a class=" page-link"href="?page-{{page_obj.paginator.num_pages}}">Última</a></li>
+    {% endif %}
+</ul>
 {% endblock %}
