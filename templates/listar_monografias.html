@@ -17,7 +17,7 @@
                 <th>Autor</th>
                 <th>Orientador</th>
                 <th>Data de Entrega</th>
-                <th>Arquivo</th>
+               <th>Arquivo</th> 
                 <th>Nota</th>
                 <th>Opções</th>
             </tr>
@@ -29,8 +29,9 @@
                 <td>{{ monografia.autor }}</td>
                 <td>{{ monografia.orientador }}</td>
                 <td>{{ monografia.data_entrega }}</td>
-                <td>{{monografia.arquivo}}</td>
+                <td><a class="text-decoration-none" href="{{monografia.arquivos.url}}"  target="_blank">Visualizar</a></td>
                 <td>{{monografia.nota_final}}</td>
+                
                 <td>
                     <a href="{% url 'editar_monografia' monografia.pk %}" class="btn btn-primary btn-sm">Editar</a>
                     <a href="{% url 'excluir_monografia' monografia.pk %}" class="btn btn-danger btn-sm">Excluir</a>
