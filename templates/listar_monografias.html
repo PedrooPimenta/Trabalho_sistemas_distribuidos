@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Listar Monografias</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Orientador</th>
+                <th>Data de Entrega</th>
+                <th>Arquivo</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for monografia in monografias %}
+            <tr>
+                <td>{{ monografia.titulo }}</td>
+                <td>{{ monografia.autor }}</td>
+                <td>{{ monografia.orientador }}</td>
+                <td>{{ monografia.data_entrega }}</td>
+                <td>{{monografia.arquivo}}</td>
+                <td>{{monografia.nota_final}}</td>
+                <td>
+                    <a href="{% url 'editar_monografia' monografia.pk %}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="{% url 'excluir_monografia' monografia.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'criar_monografia' %}" class="btn btn-success">Criar Monografia</a>
+</div>
+{% endblock %}
