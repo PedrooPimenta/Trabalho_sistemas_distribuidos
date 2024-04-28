@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'monografias',
+    'home',
+    'equipe',
     'crispy_forms',
-'crispy_bootstrap5',
+    'crispy_bootstrap5',
+    'fontawesomefree'
 ]
 
 MIDDLEWARE = [
@@ -80,8 +83,8 @@ WSGI_APPLICATION = 'monografias_projeto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'projetodjango',
-        'USER': 'root',
+        'NAME': 'sistemadjango',
+        'USER': 'adm',
         'PASSWORD':'adm',
         'HOST': 'localhost',
         'PORT': '',
@@ -123,7 +126,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -136,3 +138,10 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+

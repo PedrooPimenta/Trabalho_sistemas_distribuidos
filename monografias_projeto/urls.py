@@ -21,8 +21,10 @@ from monografias.views import ListarMonografias
 from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ListarMonografias.as_view(), name='index'),
+    #path('', ListarMonografias.as_view(), name='index'),
     path('monografias/', include('monografias.urls')),
+   path("",include('home.urls')),
+   path("equipe",include('equipe.urls')),
 ]  
 
 if settings.DEBUG:

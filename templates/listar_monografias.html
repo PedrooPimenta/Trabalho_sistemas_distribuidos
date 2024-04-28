@@ -41,6 +41,7 @@
         </tbody>
     </table>
     <a href="{% url 'criar_monografia' %}" class="btn btn-success">Criar Monografia</a>
+    <a href="/" class="btn btn-light">Voltar</a>
 </div>
 <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}
@@ -53,7 +54,7 @@
    
     {% if page_obj.has_next %}
     <li class="page-item"><a class=" page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Próxima</a></li>
-    <li class="page-item"><a class=" page-link"href="?page-{{page_obj.paginator.num_pages}}">Última</a></li>
+    <li class="page-item"><a class=" page-link"href="?page={{page_obj.paginator.num_pages}}">Última</a></li>
     {% endif %}
 </ul>
 {% endblock %}

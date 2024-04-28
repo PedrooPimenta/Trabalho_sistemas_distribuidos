@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Usuários</h2>
+    <hr>
+    <form action="?" method="GET">
+        <input type="text" name="q" value="{{ request.GET.q }}" class="p-1 border" autocomplete="off" placeholder="Buscar">
+        <button type="submit" class="btn btn-success">Pesquisar</button>
+        <a href="{% url 'listar_equipe' %}" class="btn btn-light">Limpar</a>
+    </form>
+    
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Nível</th>
+                <th>lattes</th>
+               <th>linkedin</th> 
+                <th>researchgate</th>
+                <th>email</th>
+                <th>cargo</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pesquisador in pesquisadores %}
+            <tr>
+                <td>{{ pesquisador.nome }}</td>
+                <td>{{ pesquisador.nivel }}</td>
+                <td>{{ pesquisador.lattes }}</td>
+                <td>{{pesquisador.linkedin}}</td>
+                <td>{{ pesquisador.researchgate }}</td>
+                <td>{{ pesquisador.email }}</td>
+                <td>{{ pesquisador.cargo }}</td>
+                
+                <td>
+                    <a href="{% url 'editar_equipe' pesquisador.pk %}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="{% url 'excluir_equipe' pesquisador.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'criar_equipe' %}" class="btn btn-success">Adicionar usuário</a>
+    <a href="/" class="btn btn-light">Voltar</a>
+</div>
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
+   <li class="page-item"><a  href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}" class=" page-link">Anterior</a></li> 
+    {% endif %}
+    <li class="page-item">
+        <span class="page-link ">Página: {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
+    </li>
+   
+    {% if page_obj.has_next %}
+    <li class="page-item"><a class=" page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Próxima</a></li>
+    <li class="page-item"><a class=" page-link"href="?page={{page_obj.paginator.num_pages}}">Última</a></li>
+    {% endif %}
+</ul>
+{% endblock %}
