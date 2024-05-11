@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'equipe',
     'crispy_forms',
     'crispy_bootstrap5',
-    'fontawesomefree'
+    
+
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sistemadjango',
         'USER': 'adm',
-        'PASSWORD':'adm',
+        'PASSWORD': 'adm',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -144,4 +145,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-

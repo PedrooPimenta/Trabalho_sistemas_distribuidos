@@ -1,4 +1,4 @@
-#!/home/pedro/Documentos/sistema/env/bin/python3
+#!/home/pedro/Documentos/Trabalho_sistemas_distribuidos/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
