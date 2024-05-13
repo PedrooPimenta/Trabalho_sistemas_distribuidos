@@ -19,14 +19,24 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from monografias.views import ListarMonografias
 from django.conf import settings
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', ListarMonografias.as_view(), name='index'),
     path('monografias/', include('monografias.urls')),
     path("", include('home.urls')),
     path("equipe", include('equipe.urls')),
-    
+    path('api/v1/', include('api.urls', namespace='api')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # YOUR PATTERNS
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional UI:
+    path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
+
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     'equipe',
     'crispy_forms',
     'crispy_bootstrap5',
-    
+    'api',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'drf_spectacular',
+
 
 ]
 
@@ -145,3 +149,24 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+
+#DRF
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Monografias API',
+    'DESCRIPTION': 'API de Monografias',
+    'VERSION': '1.0.0',
+}
+# Token 27bcac6da4a68244ea278ba4343f2802e197965d

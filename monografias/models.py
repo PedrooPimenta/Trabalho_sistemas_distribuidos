@@ -20,7 +20,6 @@ class Monografia(models.Model):
         max_digits=5, decimal_places=2, blank=True, null=True)
     area_concentracao = models.CharField(max_length=100, blank=True, null=True)
     arquivos = models.FileField(upload_to='arquivos/')
-    
 
     def __str__(self):
         return self.titulo
