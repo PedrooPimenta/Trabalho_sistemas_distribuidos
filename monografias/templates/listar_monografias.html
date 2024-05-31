@@ -47,7 +47,7 @@
         </tbody>
     </table>
     <a href="{% url 'criar_monografia' %}" class="btn btn-success">Criar Monografia</a>
-    <a href="/" class="btn btn-light">Voltar</a>
+    <a href="{% url 'home' %}" class="btn btn-light">Voltar</a>
 </div>
 <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}

@@ -13,7 +13,7 @@ class Monografia(models.Model):
         Pesquisador, on_delete=models.SET_NULL, max_length=100, blank=True, null=True)
     resumo = models.TextField()
     palavras_chave = models.CharField(max_length=100)
-    data_entrega = models.DateField()
+    data_entrega = models.DateTimeField(auto_now_add=True)
     banca_examinadora = models.ManyToManyField(
         Pesquisador, related_name='monografias_banca', verbose_name="Banca Examinadora")
     nota_final = models.DecimalField(

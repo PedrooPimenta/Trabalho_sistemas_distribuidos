@@ -26,7 +26,7 @@
         <tbody>
             {% for pesquisador in pesquisadores %}
             <tr>
-                <td>{{ pesquisador.nome }}</td>
+                <td>{{ pesquisador.username }}</td>
                 <td>{{ pesquisador.nivel }}</td>
                 <td>{{ pesquisador.lattes }}</td>
                 <td>{{pesquisador.linkedin}}</td>
@@ -43,7 +43,7 @@
         </tbody>
     </table>
     <a href="{% url 'criar_equipe' %}" class="btn btn-success">Adicionar usuário</a>
-    <a href="/" class="btn btn-light">Voltar</a>
+    <a href="{% url 'home' %}" class="btn btn-light">Voltar</a>
 </div>
 <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ListarEquipe, CriarEquipe, EditarEquipe, ExcluirEquipe
-
+from . import views
 urlpatterns = [
     path('', ListarEquipe.as_view(), name='listar_equipe'),
     path('criar/', CriarEquipe.as_view(), name='criar_equipe'),

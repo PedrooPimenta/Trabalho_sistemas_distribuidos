@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.db.models.query import QuerySet
@@ -6,6 +6,9 @@ from django.db.models import Q
 
 from equipe.forms import PesquisadorForm
 from equipe.models import Pesquisador
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.contrib.auth import logout
 
 
 class ListarEquipe(ListView):
@@ -27,7 +30,6 @@ class ListarEquipe(ListView):
             )
 
         return queryset
-    
 
 
 class CriarEquipe(CreateView):
@@ -35,6 +37,7 @@ class CriarEquipe(CreateView):
     form_class = PesquisadorForm
     template_name = 'criar_equipe.html'
     success_url = reverse_lazy('listar_equipe')
+
 
 class EditarEquipe(UpdateView):
     model = Pesquisador
@@ -47,4 +50,5 @@ class ExcluirEquipe(DeleteView):
     model = Pesquisador
     template_name = 'excluir_equipe.html'
     success_url = reverse_lazy('listar_equipe')
-    
+
+
