@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Suas Monografias</h2>
+    <hr>
+    <p>Total de Monografias em que você orientou : {{ total_monografias }}</p>
+    <div class="list-group">
+        {% for monografia in monografias %}
+        <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalMonografia{{ monografia.id }}">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ monografia.titulo }}</h5>
+                <small>{{ monografia.data_entrega }}</small>
+            </div>
+            <p class="mb-1">Autor: {{ monografia.autor }}</p>
+            <small>Orientador: {{ monografia.orientador }}</small>
+        </a>
+
+       
+        <div class="modal fade" id="modalMonografia{{ monografia.id }}" tabindex="-1" aria-labelledby="modalMonografiaLabel{{ monografia.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalMonografiaLabel{{ monografia.id }}">{{ monografia.titulo }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Autor:</strong> {{ monografia.autor }}</p>
+                        <p><strong>Orientador:</strong> {{ monografia.orientador }}</p>
+                        <p><strong>Data de Entrega:</strong> {{ monografia.data_entrega }}</p>
+                        <p><strong>Banca Examinadora:</strong> 
+                            {% for membro_banca in monografia.banca_examinadora.all %}
+                                {{ membro_banca.nome }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p><strong>Nota:</strong> {{ monografia.nota_final }}</p>
+                        <a href="{{ monografia.arquivos.url }}" class="btn btn-primary" target="_blank">Visualizar Arquivo</a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'home' %}" class="btn btn-light">Voltar</a>
+    </div>
+</div>
+{% endblock %}

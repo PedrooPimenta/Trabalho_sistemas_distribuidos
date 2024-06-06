@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ListarMonografias, CriarMonografia, EditarMonografia, ExcluirMonografia
+from .views import CriarMonografiaAluno, ListarMonografias, CriarMonografia, EditarMonografia, ExcluirMonografia
 
 urlpatterns = [
     path('', ListarMonografias.as_view(), name='listar_monografias'),
@@ -7,4 +7,6 @@ urlpatterns = [
     path('editar/<int:pk>/', EditarMonografia.as_view(), name='editar_monografia'),
     path('excluir/<int:pk>/', ExcluirMonografia.as_view(),
          name='excluir_monografia'),
+    path('monografias/criar/', CriarMonografiaAluno.as_view(),
+         name='criar_monografia_aluno'),
 ]

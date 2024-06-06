@@ -3,56 +3,86 @@
 {% block title %}Editar Monografia{% endblock %}
 
 {% block content %}
+<div class="text-center mb-4">
+  <h4 class="fas fa-user"> Seja Bem-vindo, <strong>{{ request.user }}</strong></h4>
+</div>
 
-<div class="row  d-flex col-md-12">
+<div class="row d-flex justify-content-center">
   <div class="col-md-3 mb-4">
-    <a href="{% url 'listar_monografias' %}" style="text-decoration: none;">
-    <div class="card  card-style"style="background-color: #161A30;  width: 300px; height: 240px; margin-right:20px; cursor: pointer;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-file container mt-4" viewBox="0 0 16 16">
-        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
-      </svg>
-      <div class="card-body">
-        <p class="text-center mt-4" style="color: whitesmoke;">Monografias</p>
+    <a href="{% url 'listar_monografias' %}" class="btn btn-dark btn-lg btn-block text-white" style="height: 100px; display: flex; align-items: center; justify-content: center;">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-file mr-2" viewBox="0 0 16 16">
+          <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1" />
+        </svg>
+        <span>Monografias</span>
       </div>
-    </div>
     </a>
   </div>
-  <div class="col">
-    <a href="{% url 'listar_equipe' %}" style="text-decoration: none;">
-    <div class="card  card-style"style="background-color: #161A30; width: 300px; height: 240px; cursor: pointer;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-file container mt-4" viewBox="0 0 16 16">
-        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
-      </svg>
-      <div class="card-body">
-        <p class="text-center mt-4" style="color: whitesmoke;">Equipe</p>
+
+  {% for group in request.user.groups.all %}
+  {% if group.name == 'Administrador' %}
+      <div class="col-md-3 mb-4">
+        <a href="{% url 'listar_equipe' %}" class="btn btn-dark btn-lg btn-block text-white" style="height: 100px; display: flex; align-items: center; justify-content: center;">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-people mr-2" viewBox="0 0 16 16">
+              <path d="M13 8a3 3 0 1 0-2.33-5.233A4.99 4.99 0 0 1 9.5 5c0 1.42-.58 2.691-1.52 3.6A3 3 0 0 0 13 8zM6 8a3 3 0 1 0 2.33-5.233A4.99 4.99 0 0 1 6.5 5c0 1.42-.58 2.691-1.52 3.6A3 3 0 0 0 6 8zM2.5 9.5A3.5 3.5 0 0 1 6 13h4a3.5 3.5 0 0 1 3.5-3.5h-11zm0-1h11a4.5 4.5 0 0 1 4.5 4.5v1a1 1 0 0 1-1 1H0a1 1 0 0 1-1-1v-1a4.5 4.5 0 0 1 4.5-4.5z"/>
+            </svg>
+            <span>Equipe</span>
+          </div>
+        </a>
       </div>
-    </div>
-    </a>
-  </div>
-  <div class="col">
-    <a href="{% url 'listar_equipe' %}" style="text-decoration: none;">
-    <div class="card  card-style"style="background-color:#161A30; width: 300px; height: 240px; cursor: pointer;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-file container mt-4" viewBox="0 0 16 16">
-        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
-      </svg>
-      <div class="card-body">
-        <p class="text-center mt-4" style="color: whitesmoke;">Equipe</p>
+    {% endif %}
+
+    {% if group.name == 'Administrador' %}
+      <div class="col-md-3 mb-4">
+        <a href="{% url 'cadastrar_professor' %}" class="btn btn-dark btn-lg btn-block text-white" style="height: 100px; display: flex; align-items: center; justify-content: center;">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-person-plus mr-2" viewBox="0 0 16 16">
+              <path d="M6 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm8-3a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 14 4zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-5a5 5 0 0 0 0 10 5 5 0 0 0 0-10z"/>
+            </svg>
+            <span>Cadastrar Professor</span>
+          </div>
+        </a>
       </div>
-    </div>
-    </a>
-  </div>
-  <div class="col">
-    <a href="{% url 'listar_equipe' %}" style="text-decoration: none;">
-    <div class="card  card-style"style="background-color: #161A30; width: 300px; height: 240px; cursor: pointer;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-file container mt-4" viewBox="0 0 16 16">
-        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
-       
-      </svg>
-      <div class="card-body">
-        <p class="text-center mt-4" style="color: whitesmoke;">Equipe</p>
+
+      <div class="col-md-3 mb-4">
+        <a href="{% url 'cadastrar_administrador' %}" class="btn btn-dark btn-lg btn-block text-white" style="height: 100px; display: flex; align-items: center; justify-content: center;">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-person-badge mr-2" viewBox="0 0 16 16">
+              <path d="M6.5 2.5a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0zM4 3a4 4 0 1 1 8 0 4 4 0 0 1-8 0zM1 14s-1 0-1-1 1-4 7-4 7 4 7 4 1 0 1 1-1 1-1 1H1zm2-1a3 3 0 0 0 6 0H3z"/>
+            </svg>
+            <span>Cadastrar Administrador</span>
+          </div>
+        </a>
       </div>
+    {% endif %}
+
+    {% if group.name == 'Aluno' %}
+      <div class="col-md-3 mb-4">
+        <a href="{% url 'criar_monografia_aluno' %}" class="btn btn-dark btn-lg btn-block text-white" style="height: 100px; display: flex; align-items: center; justify-content: center;">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-file-earmark-plus mr-2" viewBox="0 0 16 16">
+              <path d="M8 6.5a.5.5 0 0 1 .5.5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 .5-.5zM14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5.5L14 4.5zM10 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5h-3.5a.5.5 0 0 1-.5-.5V4z"/>
+            </svg>
+            <span>Cadastre sua monografia</span>
+          </div>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+  {% for group in request.user.groups.all %}
+  {% if group.name == 'Professor' %}
+    <div class="col-md-3 mb-4">
+      <a href="{% url 'monografias_professor' %}" class="btn btn-dark btn-lg btn-block text-white" style="height: 100px; display: flex; align-items: center; justify-content: center;">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-file mr-2" viewBox="0 0 16 16">
+            <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1" />
+          </svg>
+          <span>Suas monografias</span>
+        </div>
+      </a>
     </div>
-    </a>
-  </div>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

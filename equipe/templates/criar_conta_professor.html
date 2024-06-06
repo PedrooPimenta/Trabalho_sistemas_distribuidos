@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Cadastrar Professor{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Adicionar</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Criar</button>
+        <a class="btn btn-light" href="{% url 'home' %}">Voltar</a>
+    </form>
+   
+</div>
+{% endblock %}

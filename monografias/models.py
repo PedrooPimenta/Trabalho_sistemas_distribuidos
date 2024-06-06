@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 from equipe.models import Pesquisador
 
@@ -23,3 +24,5 @@ class Monografia(models.Model):
 
     def __str__(self):
         return self.titulo
+
+auditlog.register(Monografia)

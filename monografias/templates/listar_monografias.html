@@ -3,64 +3,87 @@
 <div class="container mt-4">
     <h2>Monografias</h2>
     <hr>
-    <form action="?" method="GET">
-        <input type="text" name="q" value="{{ request.GET.q }}" class="p-1 border" autocomplete="off" placeholder="Buscar">
+    <form action="?" method="GET" class="mb-4">
+        <input type="text" name="q" value="{{ request.GET.q }}" class="p-1 border" autocomplete="off"
+            placeholder="Buscar">
         <button type="submit" class="btn btn-success">Pesquisar</button>
         <a href="{% url 'listar_monografias' %}" class="btn btn-light">Limpar</a>
     </form>
-    
-    <hr>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Orientador</th>
-                <th>Data de Entrega</th>
-                <th>Banca examinadora</th>
-                <th>Arquivo</th> 
-                <th>Nota</th>
-                <th>Opções</th>
-            </tr>
-        </thead>
-        <tbody>
+
+    <div class="border rounded p-4">
+        <div class="row">
             {% for monografia in monografias %}
-            <tr>
-                <td>{{ monografia.titulo }}</td>
-                <td>{{ monografia.autor }}</td>
-                <td>{{ monografia.orientador }}</td>
-                <td>{{ monografia.data_entrega }}</td>
-                <td>
-                    {% for membro_banca in monografia.banca_examinadora.all %}
-                        {{ membro_banca.nome }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-                <td><a class="text-decoration-none" href="{{ monografia.arquivos.url }}" target="_blank">Visualizar</a></td>
-                <td>{{ monografia.nota_final }}</td>
-                
-                <td>
-                    <a href="{% url 'editar_monografia' monografia.pk %}" class="btn btn-primary btn-sm">Editar</a>
-                    <a href="{% url 'excluir_monografia' monografia.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-                </td>
-            </tr>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center cursor-pointer" data-bs-toggle="modal"
+                    data-bs-target="#modalMonografia{{ monografia.id }}">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <h5 class="card-title"><strong>Titulo:{{ monografia.titulo }}</strong></h5>
+
+                    </div>
+                    <h5 class="card-title"> Autor: {{monografia.autor}}</h5>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalMonografia{{ monografia.id }}" tabindex="-1"
+                aria-labelledby="modalMonografiaLabel{{ monografia.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalMonografiaLabel{{ monografia.id }}">{{ monografia.titulo }}
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Autor:</strong> {{ monografia.autor }}</p>
+                            <p><strong>Orientador:</strong> {{ monografia.orientador }}</p>
+                            <p><strong>Data de Entrega:</strong> {{ monografia.data_entrega }}</p>
+                            <p><strong>Banca Examinadora:</strong>
+                                {% for membro_banca in monografia.banca_examinadora.all %}
+                                {{ membro_banca.nome }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p><strong>Nota:</strong> {{ monografia.nota_final }}</p>
+                            <a href="{{ monografia.arquivos.url }}" class="btn btn-primary" target="_blank">Visualizar
+                                Monografia</a>
+                            {% for group in request.user.groups.all %}
+                            {% if 'Aluno' != group.name %}
+                            <a href="{% url 'editar_monografia' monografia.pk %}"
+                                class="btn btn-primary btn-sm">Editar</a>
+                            <a href="{% url 'excluir_monografia' monografia.pk %}"
+                                class="btn btn-danger btn-sm">Excluir</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'criar_monografia' %}" class="btn btn-success">Criar Monografia</a>
-    <a href="{% url 'home' %}" class="btn btn-light">Voltar</a>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'criar_monografia' %}" class="btn btn-success">Criar Monografia</a>
+        <a href="{% url 'home' %}" class="btn btn-light">Voltar</a>
+    </div>
 </div>
-<ul class="pagination justify-content-center">
+
+<ul class="pagination justify-content-center mt-4">
     {% if page_obj.has_previous %}
     <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
-    <li class="page-item"><a  href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}" class=" page-link">Anterior</a></li> 
+    <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}"
+            class="page-link">Anterior</a></li>
     {% endif %}
     <li class="page-item">
-        <span class="page-link ">Página: {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
+        <span class="page-link">Página: {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
     </li>
-   
     {% if page_obj.has_next %}
-    <li class="page-item"><a class=" page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Próxima</a></li>
-    <li class="page-item"><a class=" page-link"href="?page={{page_obj.paginator.num_pages}}">Última</a></li>
+    <li class="page-item"><a class="page-link"
+            href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Próxima</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última</a></li>
     {% endif %}
 </ul>
+
 {% endblock %}
