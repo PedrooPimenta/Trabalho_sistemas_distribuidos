@@ -24,9 +24,7 @@ class ListarMonografiasProfessor(LoginRequiredMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         if user.is_authenticated and user.groups.filter(name='Professor').exists():
-            # Filtrar as monografias em que o usuário é orientador, coorientador ou membro da banca
             queryset = Monografia.objects.filter(Q(orientador=user) | Q(coorientador=user) | Q(banca_examinadora=user))
-            # Garantir monografias únicas e contar o total
             queryset = queryset.annotate(total_monografias=Count('id')).distinct()
             return queryset
         else:
@@ -34,7 +32,6 @@ class ListarMonografiasProfessor(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Calcular o total de monografias
         total_monografias = context['monografias'].aggregate(total=Count('id'))['total']
         context['total_monografias'] = total_monografias
         return context
