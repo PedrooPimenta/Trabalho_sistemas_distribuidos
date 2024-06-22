@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="alert alert-warning" role="alert">
+        Você já possui uma monografia cadastrada. Não é permitido cadastrar mais de uma monografia.
+    </div>
+    <a href="{% url 'listar_monografias' %}" class="btn btn-primary">Voltar para a lista de monografias</a>
+</div>
+{% endblock %}

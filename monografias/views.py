@@ -16,13 +16,10 @@ class CriarMonografiaAluno(LoginRequiredMixin, CreateView):
     template_name = 'criar_monografia_aluno.html'
     success_url = reverse_lazy('listar_monografias')
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-
     def form_valid(self, form):
         form.instance.autor = self.request.user
+        if Monografia.objects.filter(autor=self.request.user).exists():
+            return render(self.request, 'monografia_aviso.html')
         return super().form_valid(form)
 class ListarMonografias(GroupRequiredMixin,LoginRequiredMixin,ListView):
     model = Monografia

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1>Contagem de Monografias por Orientador</h1>
+    
+</div>
+
+<div class="container mt-4">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var orientadores = [];
+    var totalMonografias = [];
+
+    {% for item in payload.orientadores %}
+        orientadores.push("{{ item.orientador }}");
+        totalMonografias.push({{ item.total }});
+    {% endfor %}
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: orientadores,
+            datasets: [{
+                label: 'Monografias por Orientador',
+                data: totalMonografias,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Número de Monografias'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Orientadores'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
+<div class="container mt-4">
+    <div class="float-end">
+        <a href="{% url 'home' %}" class="btn btn-light">Voltar</a>
+    </div>
+</div>
+{% endblock %}
